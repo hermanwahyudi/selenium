@@ -13,28 +13,27 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/'))
 class Transaksi():
 	
 	# list domain toko
-	domain_shop = ['tokoqc14', 'tokoqc15', 'tokoqc16', 'claire']
+	domain_shop = ['tokoqc14', 'tokoqc15', 'tokoqc16']
 	
 	# dictionary
 	dict = {
-		"index_url" : "http://new.tkpdevel-pg.steph/",
-		"email" : "stephanus.tedy@gmail.com",
-		"password" : "123123"
+		"index_url" : "https://test.tokopedia.nginx/", #"http://new.tkpdevel-pg.steph/",
+		"email" : "tkpd.qc+13@gmail.com", #"stephanus.tedy@gmail.com",
+		"password" : "1234asdf" #"123123"
 	}
 
-	def __init__(self, payment):
-		self.browser = webdriver.Chrome("chromedriver")
-		self.payment = payment
+	def __init__(self, browser):
+		self.browser = browser
 	
 	def open(self, url):
 		self.browser.get(url)
 		time.sleep(2)
 
-	def do_login(self):
+	def do_login(self, email, password):
 		try:
 			self.browser.find_element_by_link_text("Masuk").click()
-			self.browser.find_element_by_name("email").send_keys(self.dict['email'])
-			self.browser.find_element_by_name("pwd").send_keys(self.dict['password'])
+			self.browser.find_element_by_name("email").send_keys(email)
+			self.browser.find_element_by_name("pwd").send_keys(password)
 			self.browser.find_element_by_class_name("btn-login-top").click()
 			self.browser.implicitly_wait(5)
 		except Exception as inst:
@@ -43,7 +42,7 @@ class Transaksi():
 	def go_to_shop(self):
 		length_shop = len(self.domain_shop)
 		rand = randint(0, length_shop-1)
-		self.open(self.dict['index_url'] + self.domain_shop[3])
+		self.open(self.dict['index_url'] + self.domain_shop[rand])
 
 	def choose_product(self):
 		self.go_to_shop()
@@ -135,16 +134,3 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-# main
-
-if(__name__ == "__main__"):
-	obj = Transaksi("Deposit")
-	obj.open(obj.dict['index_url'])
-	obj.do_login()
-	i = 0
-	while i < 20: 
-		obj.choose_product()
-		obj.choose_payment(obj.payment)
-		obj.checkout()
-		obj.pay(obj.payment)
-		i += 1
