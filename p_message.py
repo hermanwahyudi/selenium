@@ -2,7 +2,7 @@ from selenium import webdriver
 from random import randint
 from selenium.webdriver.common.by import By
 
-class SendMessageShop:
+class Message:
 	def __init__(self):
 		self.browser = webdriver.Firefox()
 		self.browser.get("https://tokopedia.dev/")
@@ -31,7 +31,7 @@ class SendMessageShop:
 # main
 
 if(__name__ == "__main__"):
-	 obj = SendMessageShop()
+	 obj = Message()
 	 obj.sendMsg()
 	 
 	 # obj.deleteEtalase()
