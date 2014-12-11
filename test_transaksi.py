@@ -9,8 +9,8 @@ from transaksi import Transaksi
 class TestTransaksi(unittest.TestCase):
 
 	dict = {
-		"index_url" : "https://test.tokopedia.nginx/",
-		"email" : "tkpd.qc+13@gmail.com",
+		"index_url" : "https://test.tokopedia.nginx/", #"http://new.tkpdevel-pg.steph/", #
+		"email" : "tkpd.qc+13@gmail.com", #"stephanus.tedy@gmail.com", #
 		"password" : "1234asdf"
 	}
 
@@ -21,16 +21,13 @@ class TestTransaksi(unittest.TestCase):
 		self.obj.do_login(self.dict['email'], self.dict['password'])
 
 	def test_case_with_deposit(self):
-		self.obj.choose_product()
-		self.obj.choose_payment("Deposit")
-		self.obj.checkout()
-		self.obj.pay("Deposit")
-
-	def test_case_with_bank(self):
-		self.obj.choose_product()
-		self.obj.choose_payment("Bank")
-		self.obj.checkout()
-		self.obj.pay("Bank")
+		i = 0
+		while i < 20:
+			self.obj.choose_product()
+			self.obj.choose_payment("Deposit")
+			self.obj.checkout()
+			self.obj.pay("Deposit")
+			i += 1
 
 	def tearDown(self):
 		print("Testing akan selesai dalam beberapa saat..")

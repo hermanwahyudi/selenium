@@ -17,9 +17,9 @@ class Transaksi():
 	
 	# dictionary
 	dict = {
-		"index_url" : "https://test.tokopedia.nginx/", #"http://new.tkpdevel-pg.steph/",
-		"email" : "tkpd.qc+13@gmail.com", #"stephanus.tedy@gmail.com",
-		"password" : "1234asdf" #"123123"
+		"index_url" : "https://test.tokopedia.nginx/", #"http://new.tkpdevel-pg.steph/", #
+		"email" : "tkpd.qc+13@gmail.com", #"stephanus.tedy@gmail.com", #
+		"password" : "1234asdf"
 	}
 
 	def __init__(self, browser):
@@ -60,6 +60,8 @@ class Transaksi():
 			self.add_to_cart()
 		else:
 			print("Tidak ada Produk di Toko", self.browser.title)
+			time.sleep(3)
+			self.choose_product()
 	
 	def add_to_cart(self):
 		try:
@@ -78,10 +80,9 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 		
-		#self.browser.find_element(By.ID, "notes").send_keys(randNotes)
 	def choose_kurir(self):
 		try:
-			time.sleep(4)
+			time.sleep(3)
 			list_shipping_agency = self.browser.find_elements(By.XPATH, "//select[@name='shipping_agency']/option")
 			i = 1
 			while i < len(list_shipping_agency):
