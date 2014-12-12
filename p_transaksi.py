@@ -73,7 +73,10 @@ class Transaksi():
 			time.sleep(5)
 			self.browser.find_element(By.ID, "min-order").clear()
 			self.browser.find_element(By.ID, "min-order").send_keys(randint(1, 2))
-			self.browser.find_element(By.ID, "notes").send_keys(randint(1000000000, 10000000000))
+			notes = ""
+			for i in range(30):
+				notes += str(i)
+			self.browser.find_element(By.ID, "notes").send_keys(notes)
 			self.choose_kurir()
 			time.sleep(1)
 			self.browser.find_element(By.CSS_SELECTOR, "button.btn-buy").submit()
@@ -84,12 +87,8 @@ class Transaksi():
 		try:
 			time.sleep(2)
 			list_shipping_agency = self.browser.find_elements(By.XPATH, "//select[@name='shipping_agency']/option")
-			i = 1
-			while i < len(list_shipping_agency):
-				if i == randint(1, len(list_shipping_agency)):
-					list_shipping_agency[i].click()
-					break
-				i += 1
+			rand = randint(1, len(list_shipping_agency))
+			list_shipping_agency[rand].click()
 			time.sleep(2)
 			list_service_type = self.browser.find_elements(By.XPATH, "//select[@name='shipping_product']/option")
 			for j in range(len(list_service_type)):
