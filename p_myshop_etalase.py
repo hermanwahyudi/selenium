@@ -1,6 +1,7 @@
 from selenium import webdriver
 from random import randint
 from selenium.webdriver.common.by import By
+import time
 
 class MyshopEtalase:
 	def __init__(self):
@@ -21,7 +22,9 @@ class MyshopEtalase:
 			self.browser.implicitly_wait(1)
 			self.browser.find_element_by_id("btn-add").click()
 			self.browser.find_element_by_name("e_name").send_keys(rand)
+			time.sleep(1)
 			self.browser.find_element_by_css_selector("button.btn-action").click()
+			time.sleep(1)
 			self.browser.get("https://test.tokopedia.nginx/myshop-etalase.pl")
 			print("Tambah Etalase ke-"+str(i))
 			i += 1 
@@ -30,7 +33,9 @@ class MyshopEtalase:
 		for i in range(100):
 			self.browser.find_element_by_css_selector("a.delete-etalase").click()
 			self.browser.implicitly_wait(6)
+			time.sleep(1)
 			self.browser.find_element_by_xpath("//button[@name='submit']").click()
+			time.sleep(1)
 			self.browser.get("https://test.tokopedia.nginx/myshop-etalase.pl")
 			print("Hapus Etalase ke-"+str(i))
 
