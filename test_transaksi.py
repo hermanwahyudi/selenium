@@ -3,7 +3,7 @@
 import time, unittest, os, sys
 #sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/'))
 from selenium import webdriver
-from transaksi import Transaksi
+from p_transaksi import Transaksi
 
 
 class TestTransaksi(unittest.TestCase):

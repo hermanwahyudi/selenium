@@ -82,7 +82,7 @@ class Transaksi():
 		
 	def choose_kurir(self):
 		try:
-			time.sleep(3)
+			time.sleep(2)
 			list_shipping_agency = self.browser.find_elements(By.XPATH, "//select[@name='shipping_agency']/option")
 			i = 1
 			while i < len(list_shipping_agency):
@@ -90,7 +90,7 @@ class Transaksi():
 					list_shipping_agency[i].click()
 					break
 				i += 1
-			time.sleep(1)
+			time.sleep(2)
 			list_service_type = self.browser.find_elements(By.XPATH, "//select[@name='shipping_product']/option")
 			for j in range(len(list_service_type)):
 				if j == randint(1, len(list_service_type)):
