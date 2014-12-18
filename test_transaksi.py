@@ -6,28 +6,34 @@ from selenium import webdriver
 from transaksi import Transaksi
 
 
-class TestTransaksi(unittest.TestCase):
+class TestTransaction(unittest.TestCase):
 
-	dict = {
-		"index_url" : "https://test.tokopedia.nginx/",
+	# instance variable
+	_domain_shop = "tokoqc14"
+	_choose_shipping = "JNE"
+	_choose_payment = "Deposit"
+
+	# dictionary user
+	dict_user = {
 		"email" : "tkpd.qc+13@gmail.com",
 		"password" : "1234asdf"
 	}
 
 	def setUp(self):
-		self.driver = webdriver.Chrome("chromedriver")
+		self.driver = webdriver.Chrome("C:\driver\chromedriver")
 		self.obj = Transaksi(self.driver)
-		self.obj.open(self.dict['index_url'])
-		self.obj.do_login(self.dict['email'], self.dict['password'])
 
 	def test_case_with_deposit(self):
+		self.obj.open("test-site")
+		self.obj.do_login(self.dict_user['email'], self.dict_user['password'])
 		i = 0
 		while i < 5:
+			self.obj.domain(self._domain_shop)
 			self.obj.choose_product()
-			self.obj.choose_payment("Deposit")
+			self.obj.add_to_cart(self._choose_shipping)
+			self.obj.choose_payment(self._choose_payment)
 			self.obj.checkout()
-			self.obj.pay("Deposit")
-			print("Transaksi dengan deposit berhasil.")
+			self.obj.pay(self.dict_user['password'])
 			i += 1
 
 	def tearDown(self):

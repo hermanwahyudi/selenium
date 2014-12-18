@@ -12,6 +12,28 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/'))
 
 class Transaksi():
 	
+	# instance variable product
+	_product_loc = (By.XPATH, "//div[@class='span9']/div[1]")
+	_list_product_loc = (By.XPATH, "//div[@itemtype='http://schema.org/ItemList']/div")
+
+	# instance variable
+	_pl_page = "tx.pl"
+	_id_deposit = "input-gateway-0"
+	_id_trfbank = "input-gateway-1"
+	_delete_prod_loc = (By.CSS_SELECTOR, "a.delete-product")
+	_checkout_loc = (By.CSS_SELECTOR, "button.go_to_step_1")
+	_password_loc = (By.NAME, "password")
+	_pay_loc = (By.CSS_SELECTOR, "button.btn-buy")
+	_submit_delete_loc = (By.XPATH, "//button[@name='submit']")
+
+	# instance variable atc
+	_min_order_loc = (By.ID, "min-order")
+	_notes_loc = (By.ID, "notes")
+	_btn_atc_loc = (By.ID, "btn-atc")
+	_list_shipping_agency_loc = (By.XPATH, "//select[@name='shipping_agency']/option")
+	_list_service_type_loc = (By.XPATH, "//select[@id='shipping-product']/option")
+	_btn_buy_loc = (By.CSS_SELECTOR, "button.btn-buy")
+
 	# list domain toko
 	domain_shop = ['tokoqc14', 'tokoqc15', 'tokoqc16']
 	
@@ -22,115 +44,155 @@ class Transaksi():
 		"password" : "1234asdf" #"123123"
 	}
 
-	def __init__(self, browser):
-		self.browser = browser
-	
-	def open(self, url):
-		self.browser.get(url)
-		time.sleep(2)
+	#dictionary url
+	dict_url = {
+		"url_1" : "https://www.tokopedia.com/",
+		"url_2" : "https://test.tokopedia.nginx/",
+		"url_3" : "https://www.tokopedia.dev/"
+	}
 
-	def do_login(self, email, password):
+	def __init__(self, browser):
+		self.driver = browser
+	
+	def open(self, flag):
+		self.url = ""
 		try:
-			self.browser.find_element_by_link_text("Masuk").click()
-			self.browser.find_element_by_name("email").send_keys(email)
-			self.browser.find_element_by_name("pwd").send_keys(password)
-			self.browser.find_element_by_class_name("btn-login-top").click()
-			self.browser.implicitly_wait(5)
+			if(flag == "live-site"):
+				self.url = self.dict_url['url_1']
+			elif(flag == "test-site"):
+				self.url = self.dict_url['url_2']
+			else:
+				self.url = self.dict_url['url_3']
+			self.driver.get(self.url)
+			time.sleep(2)
 		except Exception as inst:
 			print(inst)
 
-	def go_to_shop(self):
-		length_shop = len(self.domain_shop)
-		rand = randint(0, length_shop-1)
-		self.open(self.dict['index_url'] + self.domain_shop[rand])
+	def domain(self, x=0):
+		self.domain = ""
+		try:
+			if x == 0:
+				rand = randint(0, len(self.domain_shop)-1)
+				self.domain = self.domain_shop[rand]
+			else:
+				self.domain = x
+			self.driver.get(self.url + self.domain)
+		except Exception as inst:
+			print(inst)
 
 	def choose_product(self):
-		self.go_to_shop()
-		condition_product = self.browser.find_element(By.XPATH, "//div[@class='span9']/div[1]")
-		if condition_product.text != "Tidak ada Produk":
-			list_product = self.browser.find_elements(By.XPATH, "//div[@itemtype='http://schema.org/ItemList']/div")
-			i, length = 0, len(list_product)
-			rand = randint(i, length-1)
-			print(length, list_product[0].text)
-			while i < length:
-				if(i == rand):
-					list_product[i].click()
-					break
-				i += 1
-			self.add_to_cart()
-		else:
-			print("Tidak ada Produk di Toko", self.browser.title)
-	
-	def add_to_cart(self):
 		try:
-			time.sleep(2)
-			element = WebDriverWait(self.browser, 10).until(
-				EC.presence_of_element_located((By.ID, "btn-atc"))
+			condition_product = self.driver.find_element(*self._product_loc)
+			if condition_product.text != "Tidak ada Produk":
+				list_product = self.driver.find_elements(*self._list_product_loc)
+				i, length = 0, len(list_product)
+				rand = randint(i, length-1)
+				while i < length:
+					if(i == rand):
+						list_product[i].click()
+						break
+					i += 1
+			else:
+				print("Tidak ada Produk di Toko", self.driver.title)
+		except Exception as inst:
+			print(inst)
+	
+	def add_to_cart(self, shipping_agency):
+		try:
+			time.sleep(3)
+			element = WebDriverWait(self.driver, 10).until(
+				EC.presence_of_element_located((self._btn_atc_loc))
 			)
 			element.click()
-			time.sleep(5)
-			self.browser.find_element(By.ID, "min-order").clear()
-			self.browser.find_element(By.ID, "min-order").send_keys(randint(1, 2))
-			self.browser.find_element(By.ID, "notes").send_keys(randint(1000000000, 10000000000))
-			self.choose_kurir()
+			time.sleep(3)
+			self.driver.find_element(*self._min_order_loc).clear()
+			self.driver.find_element(*self._min_order_loc).send_keys(randint(1, 2))
+			notes = ""
+			for i in range(50):
+				notes += str(i)
+			self.driver.find_element(*self._notes_loc).send_keys(notes)
+			self.choose_shipping_agency(shipping_agency)
 			time.sleep(1)
-			self.browser.find_element(By.CSS_SELECTOR, "button.btn-buy").submit()
+			self.driver.find_element(*self._btn_buy_loc).submit()
 		except Exception as inst:
 			print(inst)
 		
-		#self.browser.find_element(By.ID, "notes").send_keys(randNotes)
-	def choose_kurir(self):
+	def choose_shipping_agency(self, x=""):
 		try:
-			time.sleep(4)
-			list_shipping_agency = self.browser.find_elements(By.XPATH, "//select[@name='shipping_agency']/option")
-			i = 1
-			while i < len(list_shipping_agency):
-				if i == randint(1, len(list_shipping_agency)):
-					list_shipping_agency[i].click()
-					break
-				i += 1
+			time.sleep(2)
+			found = False
+			list_shipping_agency = self.driver.find_elements(*self._list_shipping_agency_loc)
+			j, k, length = 0, 0, len(list_shipping_agency)
+			if(length > 1):
+				for i in list_shipping_agency:
+					if i.text == x:
+						found = True
+						j = k
+						break
+					k += 1
+				if(x == "" or found == False):
+					j = randint(1, length-1)
+			else:
+				j = 0
 			time.sleep(1)
-			list_service_type = self.browser.find_elements(By.XPATH, "//select[@name='shipping_product']/option")
-			for j in range(len(list_service_type)):
-				if j == randint(1, len(list_service_type)):
-					list_service_type[j].click()
+			list_shipping_agency[j].click()
+			time.sleep(1)
+			list_service_type = self.driver.find_elements(*self._list_service_type_loc)
+			for q in range(len(list_service_type)):
+				if q == randint(0, len(list_service_type)-1):
+					list_service_type[q].click()
 					break
 			time.sleep(1)
 		except Exception as inst:
 			print(inst)
 
-	def choose_payment(self, choose):
+	def choose_payment(self, payment):
 		id_payment = ""
+		self.payment = payment
 		try:
 			time.sleep(2)
-			if choose == "Deposit":
-				id_payment = "input-gateway-0"
-			elif choose == "Bank":
-				id_payment = "input-gateway-1"
-			element1 = WebDriverWait(self.browser, 10).until(
+			if self.payment == "Deposit":
+				id_payment = self._id_deposit
+			elif self.payment == "Bank":
+				id_payment = self._id_trfbank
+			element1 = WebDriverWait(self.driver, 10).until(
 					EC.presence_of_element_located((By.ID, id_payment))
 				)
 			element1.click()
 		except Exception as inst:
 			print(inst)
+			
 	def checkout(self):
 		try:
-			element2 = WebDriverWait(self.browser, 10).until(
-				EC.visibility_of_element_located((By.CSS_SELECTOR, "button.go_to_step_1"))
+			element2 = WebDriverWait(self.driver, 10).until(
+				EC.visibility_of_element_located((self._checkout_loc))
 			)
 			time.sleep(3)
 			element2.click()
 		except Exception as inst:
 			print(inst)
 
-	def pay(self, choose):
+	def pay(self, password):
 		try:
 			time.sleep(1)
-			if choose == "Deposit":
-				self.browser.find_element_by_name("password").send_keys(self.dict['password'])
-			elif choose == "Bank":
+			if self.payment == "Deposit":
+				self.driver.find_element(*self._password_loc).send_keys(password)
+			elif self.payment == "Bank":
 				pass
-			self.browser.find_element(By.CSS_SELECTOR, "button.btn-buy").submit()
+			self.driver.find_element(*self._pay_loc).submit()
 		except Exception as inst:
 			print(inst)
+
+	def do_login(self, email, password):
+		try:
+			self.driver.find_element_by_link_text("Masuk").click()
+			self.driver.find_element_by_name("email").send_keys(email)
+			self.driver.find_element_by_name("pwd").send_keys(password)
+			self.driver.find_element_by_class_name("btn-login-top").click()
+			self.driver.implicitly_wait(5)
+		except Exception as inst:
+			print(inst)
+
+	def __str__(self):
+		return "Transaksi"
 
