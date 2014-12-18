@@ -15,8 +15,10 @@ class TestTransaction(unittest.TestCase):
 
 	# dictionary user
 	dict_user = {
-		"email" : "tkpd.qc+13@gmail.com",
-		"password" : "1234asdf"
+		"email_buyer" : "tkpd.qc+13@gmail.com",
+		"password_buyer" : "1234asdf",
+		"email_seller" : "tkpd.qc+14@gmail.com",
+		"password_seller" : "1234asdf"
 	}
 
 	def setUp(self):
@@ -25,16 +27,18 @@ class TestTransaction(unittest.TestCase):
 
 	def test_case_with_deposit(self):
 		self.obj.open("test-site")
-		self.obj.do_login(self.dict_user['email'], self.dict_user['password'])
-		i = 0
-		while i < 5:
-			self.obj.domain(self._domain_shop)
-			self.obj.choose_product()
-			self.obj.add_to_cart(self._choose_shipping)
-			self.obj.choose_payment(self._choose_payment)
-			self.obj.checkout()
-			self.obj.pay(self.dict_user['password'])
-			i += 1
+		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
+		self.obj.domain("tokoqc14")
+		self.obj.choose_product()
+		self.obj.add_to_cart(self._choose_shipping)
+		self.obj.choose_payment(self._choose_payment)
+		self.obj.checkout()
+		self.obj.pay(self.dict_user['password_buyer'])
+		self.obj.go_to_status_order()
+		inv = self.obj.get_invoice()
+		self.obj.do_logout()
+		self.obj.do_login(self.dict_user['email_seller'], self.dict_user['password_seller'])
+		self.obj.receive_order(inv)
 
 	def tearDown(self):
 		print("Testing akan selesai dalam beberapa saat..")

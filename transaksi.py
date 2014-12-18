@@ -229,20 +229,28 @@ class Transaksi():
 	def receive_order(self, inv):
 		pl_new_order = "myshop_order.pl"
 		self.driver.get(self.url + pl_new_order)
+		found = False
 		try:
 			condition_order = self.driver.find_element(By.XPATH, "//*[@id='change-template']")
 			if("Tidak ada Daftar Pemesanan" in condition_order.text):
 				print("Tidak ada Order Baru")
 			else:
+				j = 0
+				print(inv, self.id_order)
 				list_order = self.driver.find_elements(By.XPATH, "//div[@class='list-box-content']/table")
 				for i in list_order:
+					print(j, i.text)
 					if inv in i.text:
-						time.sleep(1)
+						time.sleep(2)
+						print(inv)
 						response_order = self.driver.find_element(By.XPATH, "//*[@id='"+self.id_order+"']/td[3]/div[3]/div/form/div[1]/div/div[2]/button")
 						response_order.click()
+						found = True
 						break
+					j += 1
 				time.sleep(1)
-				self.driver.find_element(By.XPATH, "//button[text()='Ya']").click()
+				if(found == True):
+					self.driver.find_element(By.XPATH, "//button[text()='Ya']").click()
 		except Exception as inst:
 			print(inst)
 
