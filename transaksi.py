@@ -12,6 +12,12 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/'))
 
 class Transaksi():
 	
+	# instance variable login
+	_link_login_loc = (By.LINK_TEXT, "Masuk")
+	_email_login_loc = (By.NAME, "email")
+	_password_login_loc = (By.ID, "inputPassword")
+	_btn_login_loc = (By.CLASS_NAME, "btn-login-top")
+
 	# instance variable product
 	_product_loc = (By.XPATH, "//div[@class='span9']/div[1]")
 	_list_product_loc = (By.XPATH, "//div[@itemtype='http://schema.org/ItemList']/div")
@@ -36,13 +42,6 @@ class Transaksi():
 
 	# list domain toko
 	domain_shop = ['tokoqc14', 'tokoqc15', 'tokoqc16']
-	
-	# dictionary
-	dict = {
-		"index_url" : "https://test.tokopedia.nginx/", #"http://new.tkpdevel-pg.steph/",
-		"email" : "tkpd.qc+13@gmail.com", #"stephanus.tedy@gmail.com",
-		"password" : "1234asdf" #"123123"
-	}
 
 	#dictionary url
 	dict_url = {
@@ -65,6 +64,26 @@ class Transaksi():
 				self.url = self.dict_url['url_3']
 			self.driver.get(self.url)
 			time.sleep(2)
+		except Exception as inst:
+			print(inst)
+
+	def do_login(self, email, password):
+		try:
+			self.driver.find_element(*self._link_login_loc).click()
+			self.driver.find_element(*self._email_login_loc).send_keys(email)
+			self.driver.find_element(*self._password_login_loc).send_keys(password)
+			self.driver.find_element(*self._btn_login_loc).click()
+			self.driver.implicitly_wait(5)
+		except Exception as inst:
+			print(inst)
+
+	def do_logout(self):
+		pl_logout = "logout.pl"
+		try:
+			time.sleep(5)
+			user_tab = self.driver.find_element(By.ID, "user-tab")
+			ActionChains(self.driver).move_to_element(user_tab).perform()
+			self.driver.get(self.url + pl_logout)
 		except Exception as inst:
 			print(inst)
 
@@ -183,13 +202,13 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def do_login(self, email, password):
+	def receive_order(self):
+		pl_new_order = "myshop_order.pl"
+		self.driver.get(self.url + pl_new_order)
 		try:
-			self.driver.find_element_by_link_text("Masuk").click()
-			self.driver.find_element_by_name("email").send_keys(email)
-			self.driver.find_element_by_name("pwd").send_keys(password)
-			self.driver.find_element_by_class_name("btn-login-top").click()
-			self.driver.implicitly_wait(5)
+			list_order = self.driver.find_element(By.XPATH, "//div[@class='list-box-content']/table")
+			for i in list_order:
+				print(i.text)
 		except Exception as inst:
 			print(inst)
 
