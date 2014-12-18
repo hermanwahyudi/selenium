@@ -50,6 +50,9 @@ class Transaksi():
 		"url_3" : "https://www.tokopedia.dev/"
 	}
 
+	# id_order 
+	id_order = ""
+
 	def __init__(self, browser):
 		self.driver = browser
 	
@@ -118,7 +121,7 @@ class Transaksi():
 	
 	def add_to_cart(self, shipping_agency):
 		try:
-			time.sleep(3)
+			time.sleep(4)
 			element = WebDriverWait(self.driver, 10).until(
 				EC.presence_of_element_located((self._btn_atc_loc))
 			)
@@ -202,13 +205,44 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def receive_order(self):
+	def go_to_status_order(self, flag=0):
+		pl_status_order = "tx_order_status.pl"
+		try:
+			if(flag == 0):
+				time.sleep(1)
+				self.driver.find_element(By.LINK_TEXT, "Status Pembayaran").click()
+			else:
+				self.driver.get(self.url + pl_status_order)
+		except Exception as inst:
+			print(inst)
+
+	def get_id_order(self):
+		last_order = self.driver.find_element(By.XPATH, "//*[@class='list-box-content']/table")
+		self.id_order = last_order.find_element(By.TAG_NAME, "tr").get_attribute("id")
+		return self.id_order
+
+	def get_invoice(self):
+		id_order = self.get_id_order()
+		self.inv = self.driver.find_element(By.XPATH, "//*[@id='"+ id_order +"']/td[2]/a/b")
+		return self.inv.text
+
+	def receive_order(self, inv):
 		pl_new_order = "myshop_order.pl"
 		self.driver.get(self.url + pl_new_order)
 		try:
-			list_order = self.driver.find_element(By.XPATH, "//div[@class='list-box-content']/table")
-			for i in list_order:
-				print(i.text)
+			condition_order = self.driver.find_element(By.XPATH, "//*[@id='change-template']")
+			if("Tidak ada Daftar Pemesanan" in condition_order.text):
+				print("Tidak ada Order Baru")
+			else:
+				list_order = self.driver.find_elements(By.XPATH, "//div[@class='list-box-content']/table")
+				for i in list_order:
+					if inv in i.text:
+						time.sleep(1)
+						response_order = self.driver.find_element(By.XPATH, "//*[@id='"+self.id_order+"']/td[3]/div[3]/div/form/div[1]/div/div[2]/button")
+						response_order.click()
+						break
+				time.sleep(1)
+				self.driver.find_element(By.XPATH, "//button[text()='Ya']").click()
 		except Exception as inst:
 			print(inst)
 

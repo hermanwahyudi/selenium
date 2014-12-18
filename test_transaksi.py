@@ -15,7 +15,7 @@ class TestTransaction(unittest.TestCase):
 
 	# dictionary user
 	dict_user = {
-		"email" : "tkpd.qc+14@gmail.com",
+		"email" : "tkpd.qc+13@gmail.com",
 		"password" : "1234asdf"
 	}
 
@@ -26,8 +26,16 @@ class TestTransaction(unittest.TestCase):
 	def test_case_with_deposit(self):
 		self.obj.open("test-site")
 		self.obj.do_login(self.dict_user['email'], self.dict_user['password'])
-		self.obj.receive_order()
-		
+		i = 0
+		while i < 5:
+			self.obj.domain(self._domain_shop)
+			self.obj.choose_product()
+			self.obj.add_to_cart(self._choose_shipping)
+			self.obj.choose_payment(self._choose_payment)
+			self.obj.checkout()
+			self.obj.pay(self.dict_user['password'])
+			i += 1
+
 	def tearDown(self):
 		print("Testing akan selesai dalam beberapa saat..")
 		time.sleep(5)
