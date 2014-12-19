@@ -222,6 +222,8 @@ class Transaksi():
 		found = False
 		try:
 			condition_confirm = self.driver.find_element(By.XPATH, "//*[@id='change-template']")
+			
+			list_confirm_shipping = self.driver.find_element()
 		except Exception as inst:
 			print(inst)
 
