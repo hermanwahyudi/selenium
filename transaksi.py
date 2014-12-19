@@ -216,6 +216,15 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
+	def confirm_shipping(self, inv):
+		pl_confirm_shipping = "myshop_order_process.pl"
+		self.driver.get(self.url + pl_confirm_shipping)
+		found = False
+		try:
+			condition_confirm = self.driver.find_element(By.XPATH, "//*[@id='change-template']")
+		except Exception as inst:
+			print(inst)
+
 	def get_id_order(self):
 		last_order = self.driver.find_element(By.XPATH, "//*[@class='list-box-content']/table")
 		self.id_order = last_order.find_element(By.TAG_NAME, "tr").get_attribute("id")
@@ -235,13 +244,12 @@ class Transaksi():
 			if("Tidak ada Daftar Pemesanan" in condition_order.text):
 				print("Tidak ada Order Baru")
 			else:
-				j = 0
 				print(inv, self.id_order)
 				list_order = self.driver.find_elements(By.XPATH, "//div[@class='list-box-content']/table")
+				j = 0
 				for i in list_order:
-					print(j, i.text)
 					if inv in i.text:
-						time.sleep(2)
+						time.sleep(4)
 						print(inv)
 						response_order = self.driver.find_element(By.XPATH, "//*[@id='"+self.id_order+"']/td[3]/div[3]/div/form/div[1]/div/div[2]/button")
 						response_order.click()
@@ -251,6 +259,8 @@ class Transaksi():
 				time.sleep(1)
 				if(found == True):
 					self.driver.find_element(By.XPATH, "//button[text()='Ya']").click()
+					time.sleep(2)
+					self.driver.find_element(By.XPATH, "//button[text()='Ok']").click()
 		except Exception as inst:
 			print(inst)
 
