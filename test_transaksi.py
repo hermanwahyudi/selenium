@@ -40,6 +40,7 @@ class TestTransaction(unittest.TestCase):
 		self.obj.do_logout()
 		self.obj.do_login(self.dict_user['email_seller'], self.dict_user['password_seller'])
 		self.obj.receive_order(inv)
+		self.obj.confirm_shipping(inv)
 
 	def tearDown(self):
 		print("Testing akan selesai dalam beberapa saat..")

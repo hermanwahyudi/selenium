@@ -220,10 +220,24 @@ class Transaksi():
 		pl_confirm_shipping = "myshop_order_process.pl"
 		self.driver.get(self.url + pl_confirm_shipping)
 		found = False
+		rand_ref = randint(10000000000, 100000000000)
 		try:
 			condition_confirm = self.driver.find_element(By.XPATH, "//*[@id='change-template']")
-			
-			list_confirm_shipping = self.driver.find_element()
+			if("Tidak ada Daftar Pemesanan" in condition_confirm.text):
+				print("Tidak ada Daftar Pemesanan")
+			else:
+				list_confirm_shipping = self.driver.find_elements(By.XPATH, "//*[@id='change-template']/div[2]/div/div/table/tbody/tr")
+				for x in list_confirm_shipping:
+					if(inv in x.text):
+						time.sleep(4)
+						self.driver.find_element(By.XPATH, "//div[@class='input-ref']/input").send_keys(rand_ref)
+						time.sleep(1)
+						self.driver.find_element(By.XPATH, "//a[@class='single-conf-link']").click()
+						found = True
+						break
+				time.sleep(2)
+				if(found):
+					self.driver.find_element(By.XPATH, "//button[text()='Ya']").click()
 		except Exception as inst:
 			print(inst)
 
