@@ -35,7 +35,7 @@ class TestTransaction(unittest.TestCase):
 		self.obj.checkout()
 		self.obj.pay(self.dict_user['password_buyer'])
 		self.obj.go_to_status_order()
-		inv = self.obj.get_invoice()
+		inv = self.obj.get_last_invoice()
 		print(inv)
 		self.obj.do_logout()
 		self.obj.do_login(self.dict_user['email_seller'], self.dict_user['password_seller'])

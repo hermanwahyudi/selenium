@@ -50,9 +50,6 @@ class Transaksi():
 		"url_3" : "https://www.tokopedia.dev/"
 	}
 
-	# id_order 
-	id_order = ""
-
 	def __init__(self, browser):
 		self.driver = browser
 	
@@ -216,6 +213,12 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
+	def have_received(self, inv):
+		try:
+
+		except Exception as inst:
+			print(inst)
+			
 	def confirm_shipping(self, inv):
 		pl_confirm_shipping = "myshop_order_process.pl"
 		self.driver.get(self.url + pl_confirm_shipping)
@@ -229,25 +232,25 @@ class Transaksi():
 				list_confirm_shipping = self.driver.find_elements(By.XPATH, "//*[@id='change-template']/div[2]/div/div/table/tbody/tr")
 				for x in list_confirm_shipping:
 					if(inv in x.text):
+						print(inv)
 						time.sleep(4)
-						self.driver.find_element(By.XPATH, "//div[@class='input-ref']/input").send_keys(rand_ref)
+						id_order = x.get_attribute("id")
+						self.driver.find_element(By.XPATH, "//*[@id='"+id_order+"']/td[4]/div[2]/input").send_keys(rand_ref)
 						time.sleep(1)
-						self.driver.find_element(By.XPATH, "//a[@class='single-conf-link']").click()
+						self.driver.find_element(By.XPATH, "//*[@id='"+id_order+"']/td[5]/p[1]/a").click()
 						found = True
 						break
 				time.sleep(2)
 				if(found):
 					self.driver.find_element(By.XPATH, "//button[text()='Ya']").click()
+					time.sleep(2)
+					self.driver.find_element(By.XPATH, "//button[text()='Ok']").click()
 		except Exception as inst:
 			print(inst)
 
-	def get_id_order(self):
+	def get_last_inv(self):
 		last_order = self.driver.find_element(By.XPATH, "//*[@class='list-box-content']/table")
-		self.id_order = last_order.find_element(By.TAG_NAME, "tr").get_attribute("id")
-		return self.id_order
-
-	def get_invoice(self):
-		id_order = self.get_id_order()
+		id_order = last_order.find_element(By.TAG_NAME, "tr").get_attribute("id")
 		self.inv = self.driver.find_element(By.XPATH, "//*[@id='"+ id_order +"']/td[2]/a/b")
 		return self.inv.text
 
@@ -260,14 +263,14 @@ class Transaksi():
 			if("Tidak ada Daftar Pemesanan" in condition_order.text):
 				print("Tidak ada Order Baru")
 			else:
-				print(inv, self.id_order)
 				list_order = self.driver.find_elements(By.XPATH, "//div[@class='list-box-content']/table")
 				j = 0
 				for i in list_order:
 					if inv in i.text:
-						time.sleep(4)
-						print(inv)
-						response_order = self.driver.find_element(By.XPATH, "//*[@id='"+self.id_order+"']/td[3]/div[3]/div/form/div[1]/div/div[2]/button")
+						time.sleep(2)
+						id_order = i.find_element(By.TAG_NAME, "tr").get_attribute("id")
+						time.sleep(2)
+						response_order = self.driver.find_element(By.XPATH, "//*[@id='"+id_order+"']/td[3]/div[3]/div/form/div[1]/div/div[2]/button")
 						response_order.click()
 						found = True
 						break
