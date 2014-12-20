@@ -215,10 +215,10 @@ class Transaksi():
 
 	def have_received(self, inv):
 		try:
-
+			self.driver.find_element(By.XPATH, "//*[@id='order-7791803']/td[2]/div[2]/div[2]/button")
 		except Exception as inst:
 			print(inst)
-			
+
 	def confirm_shipping(self, inv):
 		pl_confirm_shipping = "myshop_order_process.pl"
 		self.driver.get(self.url + pl_confirm_shipping)
