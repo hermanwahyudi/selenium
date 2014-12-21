@@ -35,12 +35,16 @@ class TestTransaction(unittest.TestCase):
 		self.obj.checkout()
 		self.obj.pay(self.dict_user['password_buyer'])
 		self.obj.go_to_status_order()
-		inv = self.obj.get_last_invoice()
+		inv = self.obj.get_last_inv()
 		print(inv)
 		self.obj.do_logout()
 		self.obj.do_login(self.dict_user['email_seller'], self.dict_user['password_seller'])
 		self.obj.receive_order(inv)
 		self.obj.confirm_shipping(inv)
+		self.obj.do_logout()
+		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
+		self.obj.finish_order(inv)
+
 
 	def tearDown(self):
 		print("Testing akan selesai dalam beberapa saat..")

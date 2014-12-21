@@ -213,9 +213,25 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def have_received(self, inv):
+	def finish_order(self, inv):
+		self.go_to_status_order(1)
+		print(inv)
+		found = False
 		try:
-			self.driver.find_element(By.XPATH, "//*[@id='order-7791803']/td[2]/div[2]/div[2]/button")
+			list_order = self.driver.find_elements(By.XPATH, "//*[@class='list-box-content']/table")
+			for i in list_order:
+				if inv in i.text:
+					print(inv)
+					found = True
+					time.sleep(3)
+					id_order = i.find_element(By.TAG_NAME, "tr").get_attribute("id")
+					self.driver.find_element(By.XPATH, "//*[@id='"+id_order+"']/td[2]/div[2]/div[2]/button").click()
+					break
+			time.sleep(1)
+			if(found):
+				self.driver.find_element(By.XPATH, "//*[@id='frm_delivery_action']/div[2]/button[2]").click()
+				time.sleep(2)
+				self.driver.find_element(By.XPATH, "//button[text()='Ok']").click()
 		except Exception as inst:
 			print(inst)
 
