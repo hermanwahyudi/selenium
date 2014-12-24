@@ -69,6 +69,7 @@ class Transaksi():
 
 	def do_login(self, email, password):
 		try:
+			time.sleep(1)
 			self.driver.find_element(*self._link_login_loc).click()
 			self.driver.find_element(*self._email_login_loc).send_keys(email)
 			self.driver.find_element(*self._password_login_loc).send_keys(password)
@@ -101,16 +102,18 @@ class Transaksi():
 
 	def choose_product(self):
 		try:
+			browser_type = self.driver.capabilities['browserName']
 			condition_product = self.driver.find_element(*self._product_loc)
 			if condition_product.text != "Tidak ada Produk":
 				list_product = self.driver.find_elements(*self._list_product_loc)
 				i, length = 0, len(list_product)
 				rand = randint(i, length-1)
-				while i < length:
-					if(i == rand):
-						list_product[i].click()
-						break
-					i += 1
+				if(browser_type == "chrome"):
+					list_product[rand].click()
+				else:
+					c = "-"
+					product_name = list_product[rand].find_element(By.TAG_NAME, "b").text
+					
 			else:
 				print("Tidak ada Produk di Toko", self.driver.title)
 		except Exception as inst:
