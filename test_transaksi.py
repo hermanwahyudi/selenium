@@ -25,6 +25,9 @@ class TestTransaction(unittest.TestCase):
 		self.driver = webdriver.Chrome("C:\driver\chromedriver")
 		self.obj = Transaksi(self.driver)
 
+	def test_case_with_bank(self):
+		
+
 	def test_case_with_deposit(self):
 		self.obj.open("live-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])

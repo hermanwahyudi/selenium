@@ -217,6 +217,23 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
+	def go_to_confirm_payment(self):
+		pl_confirm_payment = "tx_payment_confirm.pl"
+		try:
+			self.driver.get(self.url + pl_confirm_payment)
+		except Exception as inst:
+			print(inst)
+
+	def show_all_confirm(self):
+		self.driver.find_element(By.XPATH, "//a[@id='collapse_show_all']").clcik()
+
+	def confirm_payment(self, inv):
+		found = False
+		try:
+
+		except Exception as inst:
+			print(inst)
+
 	def finish_order(self, inv):
 		self.go_to_status_order(1)
 		print(inv)
