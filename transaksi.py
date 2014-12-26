@@ -111,9 +111,10 @@ class Transaksi():
 				if(browser_type == "chrome"):
 					list_product[rand].click()
 				else:
-					c = "-"
 					product_name = list_product[rand].find_element(By.TAG_NAME, "b").text
-					
+					seq = product_name.split(" ")
+					j = "-".join(seq)
+					self.driver.get(self.url + self.domain + "/" + j)
 			else:
 				print("Tidak ada Produk di Toko", self.driver.title)
 		except Exception as inst:
