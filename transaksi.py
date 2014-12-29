@@ -243,7 +243,7 @@ class Transaksi():
 						id_confirmation = self.driver.find_element(By.TAG_NAME, "tr").get_attribute("id")
 						self.driver.find_element(By.XPATH, "//*[@id='"+id_confirmation+"']/td[1]/input").click()
 						time.sleep(2)
-						self.driver.find_element(By.XPATH, "//button[@class='confirm-payment-btn']").click()
+						self.driver.find_element(By.XPATH, "//*[@id='change-template']/div/div/div[2]/button[1]/b").click()
 
 		except Exception as inst:
 			print(inst)
