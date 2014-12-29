@@ -230,6 +230,11 @@ class Transaksi():
 	def confirm_payment(self, inv):
 		found = False
 		try:
+			condition_confirm = self.driver.find_elements(By.XPATH, "//div[@id='change-template']")
+			if("No Payment Confirmation" in condition_confirm.text or "Tidak ada Data Konfirmasi"  in condtion_confirm.text):
+				print("No Payment Confirmation")
+			else:
+				list_confirm = self.driver.find_elements(By.XPATH, "//div[@id='change-template']/div")
 
 		except Exception as inst:
 			print(inst)
