@@ -225,16 +225,25 @@ class Transaksi():
 			print(inst)
 
 	def show_all_confirm(self):
-		self.driver.find_element(By.XPATH, "//a[@id='collapse_show_all']").clcik()
+		time.sleep(2)
+		self.driver.find_element(By.XPATH, "//a[@id='collapse_show_all']").click()
 
-	def confirm_payment(self, inv):
+	def confirm_payment(self, inv="INV/20141229/XIV/XII/7987989"):
 		found = False
 		try:
-			condition_confirm = self.driver.find_elements(By.XPATH, "//div[@id='change-template']")
-			if("No Payment Confirmation" in condition_confirm.text or "Tidak ada Data Konfirmasi"  in condtion_confirm.text):
+			condition_confirm = self.driver.find_element(By.XPATH, "//div[@id='change-template']")
+			if("No Payment Confirmation" in condition_confirm.text or "Tidak ada Data Konfirmasi"  in condition_confirm.text):
 				print("No Payment Confirmation")
 			else:
+				self.show_all_confirm()
+				time.sleep(3)
 				list_confirm = self.driver.find_elements(By.XPATH, "//div[@id='change-template']/div")
+				for x in list_confirm:
+					if(inv in x.text):
+						id_confirmation = self.driver.find_element(By.TAG_NAME, "tr").get_attribute("id")
+						self.driver.find_element(By.XPATH, "//*[@id='"+id_confirmation+"']/td[1]/input").click()
+						time.sleep(2)
+						self.driver.find_element(By.XPATH, "//button[@class='confirm-payment-btn']").click()
 
 		except Exception as inst:
 			print(inst)

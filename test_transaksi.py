@@ -29,12 +29,8 @@ class TestTransaction(unittest.TestCase):
 		print("Transaction with Transfer Bank")
 		self.obj.open("live-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.domain("tokoqc15")
-		self.obj.choose_product()
-		self.obj.add_to_cart(self._choose_shipping)
-		self.obj.choose_payment(self._choose_payment)
-		self.obj.checkout()
-		self.obj.pay(self.dict_user['password_buyer'])
+		self.obj.go_to_confirm_payment()
+		self.obj.confirm_payment()
 
 	def test_case_with_deposit(self):
 		print("Transaction with Deposit")
