@@ -11,7 +11,7 @@ class TestTransaction(unittest.TestCase):
 	# instance variable
 	_domain_shop = "tokoqc14"
 	_choose_shipping = "JNE"
-	_choose_payment = "Bank"
+	_choose_payment = "Deposit"
 
 	# dictionary user
 	dict_user = {
@@ -25,16 +25,9 @@ class TestTransaction(unittest.TestCase):
 		self.driver = webdriver.Chrome("C:\driver\chromedriver")
 		self.obj = Transaksi(self.driver)
 
-	def test_case_with_bank(self):
-		print("Transaction with Transfer Bank")
-		self.obj.open("live-site")
-		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.go_to_confirm_payment()
-		self.obj.confirm_payment()
-
 	def test_case_with_deposit(self):
 		print("Transaction with Deposit")
-		self.obj.open("live-site")
+		self.obj.open("test-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
 		self.obj.domain("tokoqc15")
 		self.obj.choose_product()

@@ -228,7 +228,29 @@ class Transaksi():
 		time.sleep(2)
 		self.driver.find_element(By.XPATH, "//a[@id='collapse_show_all']").click()
 
-	def confirm_payment(self, inv="INV/20141229/XIV/XII/7987989"):
+	def payment_method(self, method=""):
+		try:
+			list_payment_method = self.driver.find_elements(By.XPATH, "//select[@id='payment-method']/option")
+			for x in list_payment_method:
+				if(method == x.text):
+					print(x.text)
+					x.click()
+			if(method == "Saldo Tokopedia"):
+				self.driver.find_element
+		except Exception as inst:
+			print(inst)
+	def payment_amount(self):
+		return None
+
+	def destination_account(self):
+		try:
+			dest_list = self.driver.find_elements(By.XPATH, "//select[@id='acc-id']/option")
+			#for x in dest_list:
+
+		except Exception as inst:
+			print(inst)
+
+	def confirm_payment(self, inv, method=""):
 		found = False
 		try:
 			condition_confirm = self.driver.find_element(By.XPATH, "//div[@id='change-template']")
@@ -243,7 +265,11 @@ class Transaksi():
 						id_confirmation = self.driver.find_element(By.TAG_NAME, "tr").get_attribute("id")
 						self.driver.find_element(By.XPATH, "//*[@id='"+id_confirmation+"']/td[1]/input").click()
 						time.sleep(2)
+						found = True
 						self.driver.find_element(By.XPATH, "//*[@id='change-template']/div/div/div[2]/button[1]/b").click()
+				time.sleep(1)
+				if(found == True):
+					self.payment_method(method)
 
 		except Exception as inst:
 			print(inst)
