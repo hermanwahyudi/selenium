@@ -46,7 +46,7 @@ class Transaksi():
 	#dictionary url
 	dict_url = {
 		"url_1" : "https://www.tokopedia.com/",
-		"url_2" : "https://test.tokopedia.nginx/",
+		"url_2" : "https://beta.tokopedia.com/",
 		"url_3" : "https://www.tokopedia.dev/"
 	}
 
@@ -195,7 +195,7 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def pay(self, password):
+	def pay(self, password=""):
 		try:
 			time.sleep(1)
 			if self.payment == "Deposit":
@@ -209,11 +209,7 @@ class Transaksi():
 	def go_to_status_order(self, flag=0):
 		pl_status_order = "tx_order_status.pl"
 		try:
-			if(flag == 0):
-				time.sleep(1)
-				self.driver.find_element(By.LINK_TEXT, "Status Pembayaran").click()
-			else:
-				self.driver.get(self.url + pl_status_order)
+			self.driver.get(self.url + pl_status_order)
 		except Exception as inst:
 			print(inst)
 
@@ -228,7 +224,7 @@ class Transaksi():
 		time.sleep(2)
 		self.driver.find_element(By.XPATH, "//a[@id='collapse_show_all']").click()
 
-	def payment_method(self, method=""):
+	def payment_method(self, method="", password=""):
 		try:
 			list_payment_method = self.driver.find_elements(By.XPATH, "//select[@id='payment-method']/option")
 			for x in list_payment_method:
@@ -236,11 +232,18 @@ class Transaksi():
 					print(x.text)
 					x.click()
 			if(method == "Saldo Tokopedia"):
-				self.driver.find_element
+				self.driver.find_element(By.ID, "notes").send_keys("QC"+password)
+				time.sleep(1)
+				self.driver.find_element(By.ID, "password_deposit").send_keys("password")
 		except Exception as inst:
 			print(inst)
-	def payment_amount(self):
-		return None
+			
+	def go_to_transaction_list(self):
+		pl_transaction_list = "tx_order_list.pl"
+		try:
+			self.driver.get(self.url + pl_transaction_list)
+		except Exception as inst:
+			print(inst)
 
 	def destination_account(self):
 		try:
@@ -250,7 +253,7 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def confirm_payment(self, inv, method=""):
+	def confirm_payment(self, inv, method="", password=""):
 		found = False
 		try:
 			condition_confirm = self.driver.find_element(By.XPATH, "//div[@id='change-template']")
@@ -269,7 +272,10 @@ class Transaksi():
 						self.driver.find_element(By.XPATH, "//*[@id='change-template']/div/div/div[2]/button[1]/b").click()
 				time.sleep(1)
 				if(found == True):
-					self.payment_method(method)
+					if(method == "Saldo Tokopedia"):
+						self.payment_method(method, password)
+					time.sleep(2)
+					self.driver.find_element(By.CSS_SELECTOR, "div.dialog-footer button.btn-action").click()
 
 		except Exception as inst:
 			print(inst)

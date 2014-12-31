@@ -11,11 +11,10 @@ class TestTransaction(unittest.TestCase):
 	# instance variable
 	_domain_shop = "tokoqc14"
 	_choose_shipping = "JNE"
-	_choose_payment = "Deposit"
 
 	# dictionary user
 	dict_user = {
-		"email_buyer" : "tkpd.qc+14@gmail.com",
+		"email_buyer" : "tkpd.qc+1000@gmail.com",
 		"password_buyer" : "1234asdf",
 		"email_seller" : "tkpd.qc+15@gmail.com",
 		"password_seller" : "1234asdf"
@@ -25,17 +24,33 @@ class TestTransaction(unittest.TestCase):
 		self.driver = webdriver.Chrome("C:\driver\chromedriver")
 		self.obj = Transaksi(self.driver)
 
-	def test_case_with_deposit(self):
-		print("Transaction with Deposit")
-		self.obj.open("test-site")
+	def test_case_with_bank(self):
+		print("Transaction with Bank")
+		self.obj.open("live-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
 		self.obj.domain("tokoqc15")
 		self.obj.choose_product()
 		self.obj.add_to_cart(self._choose_shipping)
-		self.obj.choose_payment(self._choose_payment)
+		self.obj.choose_payment("Bank")
+		self.obj.checkout()
+		self.obj.pay()
+		self.obj.go_to_transaction_list()
+		inv = self.obj.get_last_inv()
+		print(inv)
+		self.obj.go_to_confirm_payment()
+		self.obj.confirm_payment(inv, "Saldo Tokopedia", self.dict_user['password_buyer'])
+	
+	def test_case_with_deposit(self):
+		print("Transaction with Deposit")
+		self.obj.open("live-site")
+		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
+		self.obj.domain("tokoqc15")
+		self.obj.choose_product()
+		self.obj.add_to_cart(self._choose_shipping)
+		self.obj.choose_payment("Deposit")
 		self.obj.checkout()
 		self.obj.pay(self.dict_user['password_buyer'])
-		self.obj.go_to_status_order()
+		self.obj.go_to_transaction_list()
 		inv = self.obj.get_last_inv()
 		print(inv)
 		self.obj.do_logout()
