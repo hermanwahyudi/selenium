@@ -3,4 +3,4 @@ selenium
 
 WebDriver with Python
 
-Created by Herman Wahyudi, S.Ko
+Created by Herman Wahyudi, S.K
