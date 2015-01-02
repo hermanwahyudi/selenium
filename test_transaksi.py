@@ -14,9 +14,9 @@ class TestTransaction(unittest.TestCase):
 
 	# dictionary user
 	dict_user = {
-		"email_buyer" : "tkpd.qc+1000@gmail.com",
+		"email_buyer" : "tkpd.qc+15@gmail.com",
 		"password_buyer" : "1234asdf",
-		"email_seller" : "tkpd.qc+15@gmail.com",
+		"email_seller" : "tkpd.qc+14@gmail.com",
 		"password_seller" : "1234asdf"
 	}
 
@@ -28,7 +28,7 @@ class TestTransaction(unittest.TestCase):
 		print("Transaction with Bank")
 		self.obj.open("live-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.domain("tokoqc15")
+		self.obj.domain(self._domain_shop)
 		self.obj.choose_product()
 		self.obj.add_to_cart(self._choose_shipping)
 		self.obj.choose_payment("Bank")
@@ -44,7 +44,7 @@ class TestTransaction(unittest.TestCase):
 		print("Transaction with Deposit")
 		self.obj.open("live-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.domain("tokoqc15")
+		self.obj.domain(self._domain_shop)
 		self.obj.choose_product()
 		self.obj.add_to_cart(self._choose_shipping)
 		self.obj.choose_payment("Deposit")
