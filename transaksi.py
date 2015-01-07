@@ -88,17 +88,8 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def domain(self, x=0):
-		self.domain = ""
-		try:
-			if x == 0:
-				rand = randint(0, len(self.domain_shop)-1)
-				self.domain = self.domain_shop[rand]
-			else:
-				self.domain = x
-			self.driver.get(self.url + self.domain)
-		except Exception as inst:
-			print(inst)
+	def domain(self, x=""):
+		self.driver.get(self.url + x)
 
 	def choose_product(self):
 		try:
@@ -128,8 +119,8 @@ class Transaksi():
 			)
 			element.click()
 			time.sleep(3)
-			self.driver.find_element(*self._min_order_loc).clear()
-			self.driver.find_element(*self._min_order_loc).send_keys(randint(1, 2))
+			#self.driver.find_element(*self._min_order_loc).clear()
+			#self.driver.find_element(*self._min_order_loc).send_keys(randint(1, 2))
 			notes = ""
 			for i in range(50):
 				notes += str(i)

@@ -9,13 +9,13 @@ from transaksi import Transaksi
 class TestTransaction(unittest.TestCase):
 
 	# instance variable
-	_domain_shop = "tokoqc14"
+	_domain_shop = "toserba"
 	_choose_shipping = "JNE"
 
 	# dictionary user
 	dict_user = {
-		"email_buyer" : "tkpd.qc+15@gmail.com",
-		"password_buyer" : "1234asdf",
+		"email_buyer" : "laras.deninda+600@tokopedia.com",
+		"password_buyer" : "asdasd",
 		"email_seller" : "tkpd.qc+14@gmail.com",
 		"password_seller" : "1234asdf"
 	}
@@ -26,41 +26,18 @@ class TestTransaction(unittest.TestCase):
 
 	def test_case_with_bank(self):
 		print("Transaction with Bank")
-		self.obj.open("live-site")
+		self.obj.open("dev-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.domain(self._domain_shop)
-		self.obj.choose_product()
-		self.obj.add_to_cart(self._choose_shipping)
-		self.obj.choose_payment("Bank")
-		self.obj.checkout()
-		self.obj.pay()
-		self.obj.go_to_transaction_list()
-		inv = self.obj.get_last_inv()
-		print(inv)
-		self.obj.go_to_confirm_payment()
-		self.obj.confirm_payment(inv, "Saldo Tokopedia", self.dict_user['password_buyer'])
-	
-	def test_case_with_deposit(self):
-		print("Transaction with Deposit")
-		self.obj.open("live-site")
-		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.domain(self._domain_shop)
-		self.obj.choose_product()
-		self.obj.add_to_cart(self._choose_shipping)
-		self.obj.choose_payment("Deposit")
-		self.obj.checkout()
-		self.obj.pay(self.dict_user['password_buyer'])
-		self.obj.go_to_transaction_list()
-		inv = self.obj.get_last_inv()
-		print(inv)
-		self.obj.do_logout()
-		self.obj.do_login(self.dict_user['email_seller'], self.dict_user['password_seller'])
-		self.obj.receive_order(inv)
-		self.obj.confirm_shipping(inv)
-		self.obj.do_logout()
-		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
-		self.obj.finish_order(inv)
-
+		i = 1
+		while i <= 100:
+			print("Automated Transaction - " + str(i))
+			self.obj.domain(self._domain_shop)
+			self.obj.choose_product()
+			self.obj.add_to_cart(self._choose_shipping)
+			self.obj.choose_payment("Bank")
+			self.obj.checkout()
+			self.obj.pay()
+			i = i + 1
 
 	def tearDown(self):
 		print("Testing akan selesai dalam beberapa saat..")
