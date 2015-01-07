@@ -37,6 +37,12 @@ class TestTransaction(unittest.TestCase):
 			self.obj.choose_payment("Bank")
 			self.obj.checkout()
 			self.obj.pay()
+			self.obj.go_to_transaction_list()
+			inv = self.obj.get_last_inv()
+			print(inv)
+			self.obj.go_to_confirm_payment()
+			self.obj.confirm_payment(inv, "Transfer ATM", self.dict_user['password_buyer'])
+			time.sleep(1)
 			i = i + 1
 
 	def tearDown(self):
