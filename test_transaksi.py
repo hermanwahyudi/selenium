@@ -9,13 +9,13 @@ from transaksi import Transaksi
 class TestTransaction(unittest.TestCase):
 
 	# instance variable
-	_domain_shop = "toserba"
+	_domain_shop = "tokoqc14"
 	_choose_shipping = "JNE"
 
 	# dictionary user
 	dict_user = {
-		"email_buyer" : "laras.deninda+600@tokopedia.com",
-		"password_buyer" : "asdasd",
+		"email_buyer" : "tkpd.qc+1000@gmail.com", #"laras.deninda+600@tokopedia.com",
+		"password_buyer" : "1234asdf",
 		"email_seller" : "tkpd.qc+14@gmail.com",
 		"password_seller" : "1234asdf"
 	}
@@ -24,7 +24,28 @@ class TestTransaction(unittest.TestCase):
 		self.driver = webdriver.Chrome("C:\driver\chromedriver")
 		self.obj = Transaksi(self.driver)
 
-	def test_case_with_bank(self):
+	def test_case_with_saldo(self):
+		print("Transaction with Saldo Tokopedia")
+		self.obj.open("test-site")
+		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
+		i = 1
+		while i <= 10:
+			print("Automated Transaction - " + str(i))
+			self.obj.domain(self._domain_shop)
+			self.obj.choose_product()
+			self.obj.add_to_cart(self._choose_shipping)
+			self.obj.choose_payment("Deposit")
+			self.obj.checkout()
+			self.obj.pay(self.dict_user['password_buyer'])
+			self.obj.go_to_status_order()
+			inv = self.obj.get_last_inv()
+			print(inv)
+			self.obj.do_logout()
+			self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
+			self.obj.receive_order(inv)
+			i = i + 1
+
+	def test_case_with_tbank(self):
 		print("Transaction with Bank")
 		self.obj.open("dev-site")
 		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
