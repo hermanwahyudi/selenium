@@ -27,10 +27,10 @@ class TestTransaction(unittest.TestCase):
 	def test_case_with_saldo(self):
 		print("Transaction with Saldo Tokopedia")
 		self.obj.open("test-site")
-		self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
 		i = 1
 		while i <= 10:
 			print("Automated Transaction - " + str(i))
+			self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
 			self.obj.domain(self._domain_shop)
 			self.obj.choose_product()
 			self.obj.add_to_cart(self._choose_shipping)
@@ -41,8 +41,9 @@ class TestTransaction(unittest.TestCase):
 			inv = self.obj.get_last_inv()
 			print(inv)
 			self.obj.do_logout()
-			self.obj.do_login(self.dict_user['email_buyer'], self.dict_user['password_buyer'])
+			self.obj.do_login(self.dict_user['email_seller'], self.dict_user['password_seller'])
 			self.obj.receive_order(inv)
+			self.obj.do_logout()
 			i = i + 1
 
 	def test_case_with_tbank(self):
