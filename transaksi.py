@@ -50,6 +50,16 @@ class Transaksi():
 		"url_3" : "https://www.tokopedia.dev/"
 	}
 
+	_notes_loc = (By.ID, "notes")
+	_password_deposit_loc = (By.ID, "password_deposit")
+	_list_payment_method_loc = (By.XPATH, "//select[@id='payment-method']/option")
+	_condition_confirm_loc = (By.XPATH, "//div[@id='change-template']")
+	_list_confirm_loc = (By.XPATH, "//div[@id='change-template']/div")
+	_check_selected_loc = (By.XPATH, "//*[@id='change-template']/div/div/div[2]/button[1]/b")
+	_btn_submit_loc = (By.CSS_SELECTOR, "div.dialog-footer button.btn-action")
+	_total_inv_loc = (By.XPATH, "/html/body/div[3]/div[1]/div[2]/div/div/div/form[1]/div[2]/div[2]/strong")
+	_collapse_show_all_loc = (By.CSS_SELECTOR, 'a#collapse_show_all span#colapse_show_open')
+
 	def __init__(self, browser):
 		self.driver = browser
 	
@@ -88,17 +98,8 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
-	def domain(self, x=0):
-		self.domain = ""
-		try:
-			if x == 0:
-				rand = randint(0, len(self.domain_shop)-1)
-				self.domain = self.domain_shop[rand]
-			else:
-				self.domain = x
-			self.driver.get(self.url + self.domain)
-		except Exception as inst:
-			print(inst)
+	def domain(self, x=""):
+		self.driver.get(self.url + x)
 
 	def choose_product(self):
 		try:
@@ -128,8 +129,8 @@ class Transaksi():
 			)
 			element.click()
 			time.sleep(3)
-			self.driver.find_element(*self._min_order_loc).clear()
-			self.driver.find_element(*self._min_order_loc).send_keys(randint(1, 2))
+			#self.driver.find_element(*self._min_order_loc).clear()
+			#self.driver.find_element(*self._min_order_loc).send_keys(randint(1, 2))
 			notes = ""
 			for i in range(50):
 				notes += str(i)
@@ -253,32 +254,70 @@ class Transaksi():
 		except Exception as inst:
 			print(inst)
 
+	def show_all_confirm(self):
+		time.sleep(2)
+		self.driver.find_element(*self._collapse_show_all_loc).click()
+	
+	def payment_method(self, method="", password=""):
+		try:
+			list_payment_method = self.driver.find_elements(*self._list_payment_method_loc)
+			for x in list_payment_method:
+				if(method == x.text):
+					print(x.text)
+					x.click()
+			if(method == "Saldo Tokopedia"):
+				self.driver.find_element(*self._notes_loc).send_keys("QC")
+				time.sleep(1)
+				self.driver.find_element(*self._password_deposit_loc).send_keys(password)
+			elif(method == "Transfer ATM"):
+				dest_account = self.driver.find_elements(By.XPATH, "//*[@id='system-bank']/option")
+				for i in dest_account:
+					y = i.text
+					if("MANDIRI" in y):
+						print(y)
+						i.click()
+						break
+				t = self.driver.find_element(*self._total_inv_loc).text
+				s = ""
+				for i in t:
+					if i.isdigit():
+						s += i
+				print(s)
+				self.driver.find_element(By.XPATH, "//*[@name='payment_amt']").send_keys(int(s))
+				self.driver.find_element(*self._notes_loc).send_keys("QC Automated")
+		except Exception as inst:
+		    print(inst)
+
 	def confirm_payment(self, inv, method="", password=""):
 		found = False
 		try:
-			condition_confirm = self.driver.find_element(By.XPATH, "//div[@id='change-template']")
-			if("No Payment Confirmation" in condition_confirm.text or "Tidak ada Data Konfirmasi"  in condition_confirm.text):
-				print("No Payment Confirmation")
-			else:
-				self.show_all_confirm()
-				time.sleep(3)
-				list_confirm = self.driver.find_elements(By.XPATH, "//div[@id='change-template']/div")
-				for x in list_confirm:
-					if(inv in x.text):
-						id_confirmation = self.driver.find_element(By.TAG_NAME, "tr").get_attribute("id")
-						self.driver.find_element(By.XPATH, "//*[@id='"+id_confirmation+"']/td[1]/input").click()
-						time.sleep(2)
-						found = True
-						self.driver.find_element(By.XPATH, "//*[@id='change-template']/div/div/div[2]/button[1]/b").click()
-				time.sleep(1)
-				if(found == True):
-					if(method == "Saldo Tokopedia"):
-						self.payment_method(method, password)
-					time.sleep(2)
-					self.driver.find_element(By.CSS_SELECTOR, "div.dialog-footer button.btn-action").click()
+		    condition_confirm = self.driver.find_element(*self._condition_confirm_loc)
+		    if("No Payment Confirmation" in condition_confirm.text or "Tidak ada Data Konfirmasi"  in condition_confirm.text):
+		        print("No Payment Confirmation")
+		    else:
+		        self.show_all_confirm()
+		        time.sleep(3)
+		        list_confirm = self.driver.find_elements(*self._list_confirm_loc)
+		        for x in list_confirm:
+		            if(inv in x.text):
+		                id_confirmation = x.find_element(By.TAG_NAME, "tr").get_attribute("id")
+		                self.driver.find_element(By.XPATH, "//*[@id='"+id_confirmation+"']/td[1]/input").click()
+		                time.sleep(2)
+		                found = True
+		                self.driver.find_element(*self._check_selected_loc).click()
+		        time.sleep(1)
+		        if(found == True):
+		            if(method == "Saldo Tokopedia"):
+		                self.payment_method(method, password)
+		            if(method == "Transfer ATM"):
+		                self.payment_method(method)
+		            time.sleep(2)
+		            self.driver.find_element(*self._btn_submit_loc).click()
+		        else:
+		            print(inv, "not found!")
 
 		except Exception as inst:
-			print(inst)
+		    print(inst)
 
 	def finish_order(self, inv):
 		self.go_to_status_order(1)
