@@ -1,33 +1,8 @@
-#    Copyright 2009 Google Inc.
-#
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#
-#         http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
+#!/usr/bin/env python
 
-"""Simple web application load testing script.
-
-This is a simple web application load
-testing skeleton script. Modify the code between !!!!!
-to make the requests you want load tested.
-"""
-
-
-import httplib2
-import random
-import socket
-import time
-from threading import Event
-from threading import Thread
-from threading import current_thread
+from threading import Event, Thread,current_thread
 from urllib.parse import urlencode
+import httplib2, random, socket, time
 
 # Modify these values to control how the testing is done
 
@@ -50,13 +25,9 @@ def threadproc():
     while not quitevent.is_set():
         try:
             # HTTP requests to exercise the server go here
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            resp, content = h.request("http://sparklines.bitworking.info/spark.cgi?type=smooth&d=88,84,82,92")
+            resp, content = h.request("https://beta.tokopedia.com/tokoqc14/")
             if resp.status != 200:
-                print ("Response not OK")
-            i += 1
-            print(i)
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                print("Response code", resp.status)
         except socket.timeout:
             pass
 

@@ -60,6 +60,10 @@ class Transaksi():
 	_total_inv_loc = (By.XPATH, "/html/body/div[3]/div[1]/div[2]/div/div/div/form[1]/div[2]/div[2]/strong")
 	_collapse_show_all_loc = (By.CSS_SELECTOR, 'a#collapse_show_all span#colapse_show_open')
 
+	_dropshipper_checked_loc = (By.XPATH, ".//*[@class='dropship_flag']")
+	_dropshipper_name_loc = (By.XPATH, "//*[@class='dropship_dtl']/input[1]")
+	_dropshipper_telp_loc = (By.XPATH, "//*[@class='dropship_dtl']/input[2]")
+
 	def __init__(self, browser):
 		self.driver = browser
 	
@@ -110,7 +114,7 @@ class Transaksi():
 				i, length = 0, len(list_product)
 				rand = randint(i, length-1)
 				if(browser_type == "chrome"):
-					list_product[rand].click()
+					list_product[2].click()
 				else:
 					product_name = list_product[rand].find_element(By.TAG_NAME, "b").text
 					seq = product_name.split(" ")
@@ -167,6 +171,18 @@ class Transaksi():
 					list_service_type[q].click()
 					break
 			time.sleep(1)
+		except Exception as inst:
+			print(inst)
+
+	def dropshipper(self, name, telp):
+		try:
+			time.sleep(2)
+			self.driver.find_element(*self._dropshipper_checked_loc).click()
+			time.sleep(1)
+			print("Dropshipper name " + name +  ", telp " + telp)
+			time.sleep(1)
+			self.driver.find_element(*self._dropshipper_name_loc).send_keys(name)
+			self.driver.find_element(*self._dropshipper_telp_loc).send_keys(telp)
 		except Exception as inst:
 			print(inst)
 
