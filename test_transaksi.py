@@ -14,19 +14,19 @@ class TestTransaction(unittest.TestCase):
 
 	# dictionary user
 	dict_user = {
-		"email_buyer" : "syntic.mail@tokopedia.com ", #"laras.deninda+600@tokopedia.com",
-		"password_buyer" : "gundam",
+		"email_buyer" : "tkpd.qc+13@gmail.com", #syntic.mail@tokopedia.com ", #"laras.deninda+600@tokopedia.com",
+		"password_buyer" : "1234asdf",
 		"email_seller" : "tkpd.qc+14@gmail.com",
 		"password_seller" : "1234asdf"
 	}
 
 	def setUp(self):
-		self.driver = webdriver.Chrome("C:\driver\chromedriver")
+		self.driver = webdriver.Chrome("chromedriver")
 		self.obj = Transaksi(self.driver)
 
 	def test_case_with_saldo(self):
 		print("Transaction with Saldo Tokopedia")
-		self.driver.get("http://new.tkpdevel-pg.api/")
+		self.driver.get("https://beta.tokopedia.com/")
 		i = 1
 		while i <= 15:
 			print("Automated Transaction - " + str(i))

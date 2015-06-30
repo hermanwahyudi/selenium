@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.4"
+  # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
+  # maintainers to fix their pypy-dev package.
+# command to install dependencies
+install:
+  - pip install -U selenium
+  - pip install requests
+  - sudo apt-get install -y nodejs
+  - npm install phantomjs
+# command to run tests
+script: python main/test_login.py
+branches:
+  only:
+    - r_master
