@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="10" errors="0" failures="0" skip="0"><testcase classname="test_inbox_talk.TestInboxTalk" name="test_initial_checking" time="42.181"><system-out><![CDATA[Platform : windows
+=====================================
+TEST #1 : INITIAL TALK INBOX CHECKING 
+=====================================
+[2015-03-16 11:52:23] https://www.tokopedia.com/login.pl is accessed in 11.6 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29b@gmail.com!
+
+--Menguji apakah ada pesan diskusi dalam inbox (is Talk exist)--
+[2015-03-16 11:52:28] https://www.tokopedia.com/inbox-talk.pl is accessed in 1.74 second
+[2015-03-16 11:52:29] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 0.991 second
+JS clickable ni
+Talk Found
+JS clickable ni
+Counting message ....
+Goto Next Page
+Goto Next Page
+Goto Next Page
+Next page not found
+end of inbox page
+List ID message dalam inbox:
+talk-6195451
+talk-6729772
+talk-6729744
+talk-6732938
+talk-6734740
+talk-6714236
+talk-6729706
+talk-6732982
+talk-6732910
+talk-6714424
+talk-6729670
+talk-6731715
+talk-6714441
+talk-6732898
+talk-6731733
+talk-6731743
+talk-6729847
+talk-6130251
+talk-6195141
+talk-6167472
+talk-6167405
+talk-6166671
+talk-6039937
+talk-6036971
+talk-6036668
+talk-6036504
+talk-5859811
+talk-5859303
+talk-5859254
+talk-5859231
+talk-5859223
+talk-5859208
+List of message has been successfully populated...
+Total semua talk message baru yang ada: 32
+
+--Periksa nilai counter talk dengan jumlah unread message sesungguhnya--
+[2015-03-16 11:52:47] https://www.tokopedia.com/inbox-talk.pl is accessed in 1.2 second
+Masuk Tab Unread
+JS clickable ni
+[2015-03-16 11:52:47] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 0.0281 second
+[2015-03-16 11:52:48] https://www.tokopedia.com/inbox-talk.pl?nav=inbox-talk-my-product is accessed by click in 0.924 second
+JS clickable ni
+[2015-03-16 11:52:48] https://www.tokopedia.com/inbox-talk.pl?nav=inbox-talk-my-product is accessed by click in 0.0279 second
+Masuk Tab Unread
+Next page not found
+end of inbox page
+List unread ID message dalam inbox:
+talk-6714236
+talk-6714441
+List of message has been successfully populated...
+unread message in counter = 2
+Actual number = 2
+Validation OK
+========================================================================
+Test akan berakhir dalam beberapa saat...
+]]></system-out></testcase><testcase classname="test_deposit.testDeposit" name="test_1_status_deposit" time="10.050"><system-out><![CDATA[Platform : windows
+===================================
+TEST #1 : CHECK STATUS DEPOSIT
+===================================
+[2015-03-16 11:52:58] https://www.tokopedia.com/login.pl is accessed in 4.53 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29a@gmail.com!
+[2015-03-16 11:53:03] https://www.tokopedia.com/deposit.pl is accessed in 1.41 second
+total Saldo tokopedia Anda adalah: Rp 4.313.500
+Saldo Tokopedia yang dapat Anda tarik sebesar: Rp 4.313.500
+List of Deposit Transaction
+
+[<selenium.webdriver.remote.webelement.WebElement object at 0x035A4BD0>]
+Transaksi ke-1
+Tidak ada aktivitas deposit
+Test Selesai
+Testing akan selesai dalam beberapa saat...
+]]></system-out></testcase><testcase classname="test_deposit.testDeposit" name="test_1_status_deposit" time="13.601"><system-out><![CDATA[Platform : windows
+===================================
+TEST #1 : CHECK STATUS DEPOSIT
+===================================
+[2015-03-16 11:53:11] https://www.tokopedia.com/login.pl is accessed in 7.08 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29a@gmail.com!
+[2015-03-16 11:53:17] https://www.tokopedia.com/deposit.pl is accessed in 2.01 second
+total Saldo tokopedia Anda adalah: Rp 4.313.500
+Saldo Tokopedia yang dapat Anda tarik sebesar: Rp 4.313.500
+List of Deposit Transaction
+
+[<selenium.webdriver.remote.webelement.WebElement object at 0x035A4E50>]
+Transaksi ke-1
+Tidak ada aktivitas deposit
+Test Selesai
+Testing akan selesai dalam beberapa saat...
+]]></system-out></testcase><testcase classname="test_inbox_message.testInboxMessage" name="test_1_check_inbox_status" time="22.200"><system-out><![CDATA[Platform : windows
+===================================
+TEST #1 : CHECK INBOX - STATUS
+===================================
+[2015-03-16 11:53:23] https://www.tokopedia.com/login.pl is accessed in 5.06 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29b@gmail.com!
+[2015-03-16 11:53:29] https://www.tokopedia.com/inbox-message.pl is accessed in 3.08 second
+----- Cek Inbox Sent Status -----
+[2015-03-16 11:53:32] https://www.tokopedia.com/inbox-message.pl is accessed in 3.27 second
+Next page available
+Next page not found
+End of inbox page
+List of sent message ID has been successfully populated ...
+Total Sent Messages : 20
+Test #1 done.
+
+Testing akan selesai dalam beberapa saat...
+]]></system-out></testcase><testcase classname="test_inbox_message.testInboxMessage" name="test_2_read_message" time="47.801"><system-out><![CDATA[Platform : windows
+===================================
+TEST #2 : READ MESSAGE
+===================================
+[2015-03-16 11:53:44] https://www.tokopedia.com/login.pl is accessed in 4.58 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29b@gmail.com!
+[2015-03-16 11:53:50] https://www.tokopedia.com/inbox-message.pl is accessed in 2.78 second
+JS clickable
+[2015-03-16 11:54:02] https://www.tokopedia.com/inbox-message.pl is accessed in 6.26 second
+[2015-03-16 11:54:03] https://www.tokopedia.com/inbox-message.pl is accessed by click in 1.85 second
+JS clickable
+End of inbox page
+List of unread message ID has been successfully populated ...
+Total Unread Message : 3
+['msg-id-5495490', 'msg-id-5364645', 'msg-id-5324887']
+div#message div.span12 table.mt-20 tbody tr#msg-id-5324887 td.topic.td-inbox-msg a
+Opening message...
+Header exists.
+[Your Shop Name] exists.
+Sender name exists.
+Textarea exists.
+Reply button exists.
+Tony Stark  Pengguna - 3 Maret 2015, 11:25 WIB
+Kalo agan mau, coba klik link ini deh gan: [LINK] atau sdsadsdd.cvv/xzczx/cvc atau ert.xd.tbb.fv atau www.google.com
+----
+All component exists.
+[2015-03-16 11:54:19] https://www.tokopedia.com/inbox-message.pl is accessed in 2.31 second
+[2015-03-16 11:54:22] https://www.tokopedia.com/inbox-message.pl is accessed by click in 3.15 second
+JS clickable
+End of inbox page
+List of unread message ID has been successfully populated ...
+Total Unread Message : 2
+Message has been successfully read
+Test #2 done.
+
+Testing akan selesai dalam beberapa saat...
+]]></system-out></testcase><testcase classname="test_inbox_talk.TestInboxTalk" name="test_initial_checking" time="36.796"><system-out><![CDATA[Platform : windows
+=====================================
+TEST #1 : INITIAL TALK INBOX CHECKING 
+=====================================
+[2015-03-16 11:54:34] https://www.tokopedia.com/login.pl is accessed in 6.1 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29b@gmail.com!
+
+--Menguji apakah ada pesan diskusi dalam inbox (is Talk exist)--
+[2015-03-16 11:54:38] https://www.tokopedia.com/inbox-talk.pl is accessed in 1.55 second
+[2015-03-16 11:54:39] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 0.973 second
+JS clickable ni
+Talk Found
+JS clickable ni
+Counting message ....
+Goto Next Page
+Goto Next Page
+Goto Next Page
+Next page not found
+end of inbox page
+List ID message dalam inbox:
+talk-6195451
+talk-6729772
+talk-6729744
+talk-6732938
+talk-6734740
+talk-6714236
+talk-6729706
+talk-6732982
+talk-6732910
+talk-6714424
+talk-6729670
+talk-6731715
+talk-6714441
+talk-6732898
+talk-6731733
+talk-6731743
+talk-6729847
+talk-6130251
+talk-6195141
+talk-6167472
+talk-6167405
+talk-6166671
+talk-6039937
+talk-6036971
+talk-6036668
+talk-6036504
+talk-5859811
+talk-5859303
+talk-5859254
+talk-5859231
+talk-5859223
+talk-5859208
+List of message has been successfully populated...
+Total semua talk message baru yang ada: 32
+
+--Periksa nilai counter talk dengan jumlah unread message sesungguhnya--
+[2015-03-16 11:54:57] https://www.tokopedia.com/inbox-talk.pl is accessed in 1.16 second
+Masuk Tab Unread
+JS clickable ni
+[2015-03-16 11:54:57] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 0.0288 second
+[2015-03-16 11:54:58] https://www.tokopedia.com/inbox-talk.pl?nav=inbox-talk-my-product is accessed by click in 1.05 second
+JS clickable ni
+[2015-03-16 11:54:58] https://www.tokopedia.com/inbox-talk.pl?nav=inbox-talk-my-product is accessed by click in 0.0287 second
+Masuk Tab Unread
+Next page not found
+end of inbox page
+List unread ID message dalam inbox:
+talk-6714236
+talk-6714441
+List of message has been successfully populated...
+unread message in counter = 2
+Actual number = 2
+Validation OK
+========================================================================
+Test akan berakhir dalam beberapa saat...
+]]></system-out></testcase><testcase classname="test_input_talk.TestInputTalk" name="test_start_discussion" time="155.196"><system-out><![CDATA[Platform : windows
+==========================
+TEST #1: SEND TALK MESSAGE
+==========================
+SENDER SIDE
+This is test attempt #44
+[2015-03-16 11:55:10] https://www.tokopedia.com/login.pl is accessed in 5.86 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29@gmail.com!
+[2015-03-16 11:55:18] https://www.tokopedia.com/testqc29a is accessed in 5.2 second
+Berhasil masuk toko
+Choose product ncnzxcnzxczzxcxhkjbh czxxczxzxCxz
+Rp 2.000
+Berhasil pilih produk secara random
+Berhasil masuk tab talk
+jumlah talk lama: 2
+Berhasil memasukkan pesan diskusi
+Pesan diskusi berhasil terkirim
+jumlah talk baru: 3
+1
+----get list ....
+----ID Message :
+talk-7395011
+daftar message baru OK
+SENDER ACTIVITY DONE
+==========================
+RECEIVER ACTIVITY
+Platform : windows
+[2015-03-16 11:55:43] https://www.tokopedia.com/login.pl is accessed in 8.03 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29a@gmail.com!
+[2015-03-16 11:55:49] https://www.tokopedia.com/inbox-talk.pl is accessed in 2.66 second
+[2015-03-16 11:55:50] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 1.1 second
+[2015-03-16 11:55:53] https://www.tokopedia.com/inbox-talk.pl?nav=inbox-talk-my-product is accessed by click in 2.72 second
+JS clickable ni
+[2015-03-16 11:55:53] https://www.tokopedia.com/inbox-talk.pl?nav=inbox-talk-my-product is accessed by click in 0.0293 second
+Masuk Tab Unread
+Goto Next Page
+Next page not found
+end of inbox page
+List unread ID message dalam inbox:
+talk-7395011
+talk-7393796
+talk-7302865
+talk-7300739
+talk-7299304
+talk-7244649
+talk-7227368
+talk-7191846
+talk-7061547
+talk-6959564
+talk-6956815
+talk-6936997
+talk-6844584
+List of message has been successfully populated...
+['talk-7395011']
+Load Element is taking too long.. retry attempt 1
+Load Element is taking too long.. retry attempt 2
+Load Element is taking too long.. retry attempt 3
+div.span12 ul li.talk-7395011 div.list-box-content div.list-box-detail div.first-talk span.unread-box
+New talk message is successfully received and flagged as unread message
+Testing akan selesai dalam beberapa saat..
+]]></system-out></testcase><testcase classname="test_register.TokopediaRegister" name="test_check_error_message_case1" time="15.499"><system-out><![CDATA[Platform : windows
+======================================================
+TEST CASE #2 : CHECK ERROR MESSAGE IF ALL FIELD = NULL
+======================================================
+TEST #2 : REGISTER NULL
+[2015-03-16 11:57:53] https://www.tokopedia.com/register.pl is accessed in 13.3 second
+Checking validation....
+Fullname error message validation OK
+Mobile phone error message validation OK
+Gender error message validation OK
+Birthdate error message validation OK
+E-mail error message validation OK
+Password error message validation OK
+Terms of Conduct error message validation OK
+
+Validation finished.
+
+]]></system-out></testcase><testcase classname="test_reply_talk.TestDebug" name="test_debug" time="51.327"><system-out><![CDATA[Platform : windows
+Test Reply
+*SELLER*
+[2015-03-16 11:58:04] https://www.tokopedia.com/login.pl is accessed in 5.66 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29a@gmail.com!
+[2015-03-16 11:58:10] https://www.tokopedia.com/inbox-talk.pl is accessed in 2.41 second
+JS clickable ni
+[2015-03-16 11:58:10] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 0.0932 second
+[]
+Total reply sebelum send reply: 0
+talk-7302865
+Test balas talk #4205
+List replyID:
+berhasil tulis reply
+reply sent
+[<selenium.webdriver.remote.webelement.WebElement object at 0x036F48B0>]
+talk-comment-12927503
+Total reply setelah send reply: 1
+New reply ID: 
+['talk-comment-12927503']
+Reply message is shown
+my username : Tony Stark
+[<selenium.webdriver.remote.webelement.WebElement object at 0x03716630>]
+talk-comment-12927503
+['talk-comment-12927503']
+receiver name : Napoleon Bonaparte
+Platform : windows
+*RECEIVER
+[2015-03-16 11:58:30] https://www.tokopedia.com/login.pl is accessed in 6.09 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29@gmail.com!
+Talk ID : talk-7302865
+['talk-comment-12927503']
+[2015-03-16 11:58:36] https://www.tokopedia.com/inbox-talk.pl is accessed in 2.4 second
+JS clickable ni
+[2015-03-16 11:58:37] https://www.tokopedia.com/inbox-talk.pl is accessed by click in 0.0899 second
+[<selenium.webdriver.remote.webelement.WebElement object at 0x03716850>]
+talk-comment-12927503
+div.span12 ul li.talk-7302865 div.list-box-content div.list-box-detail div.first-talk span.unread-box
+unread flag : 1
+talk-comment-12927503
+talk-comment-12927503
+Checking if reply is shown
+Talk Reply is received and flagged as new message
+Testing akan selesai dalam beberapa saat..
+]]></system-out></testcase><testcase classname="test_send_message.TestSendMessage" name="test_flow_send_message" time="141.140"><system-out><![CDATA[Platform : windows
+==================================
+TEST #1 : SEND MESSAGE VIA PRODUCT
+==================================
+!SENDER SIDE!
+[2015-03-16 11:58:53] https://www.tokopedia.com/login.pl is accessed in 5.97 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29a@gmail.com!
+++CHECK INBOX SENT BEFORE SEND MESSAGE++
+[2015-03-16 11:59:00] https://www.tokopedia.com/inbox-message.pl is accessed in 2.51 second
+Next page available
+Next page available
+Next page available
+Next page not found
+End of inbox page
+List of sent message ID has been successfully populated ...
+Total Sent Messages : 34
+
+++GO TO TARGET SHOP++
+[2015-03-16 11:59:18] https://www.tokopedia.com/testqc29b is accessed in 4.58 second
+
+++SEND MESSAGE++
+masuk method click send message
+Sent message button clicked
+Enter subject succeed
+Write message succeed
+Submit message
+Confirmation done
+
+++CHECK INBOX SENT AFTER SEND MESSAGE++
+[2015-03-16 12:00:00] https://www.tokopedia.com/inbox-message.pl is accessed in 2.29 second
+Next page available
+Next page available
+Next page available
+Next page not found
+End of inbox page
+List of sent message ID has been successfully populated ...
+Total Sent Messages : 35
+diff : 1
+list ID message terkirim:
+['msg-id-5533055']
+test debug
+msg-id-5533055
+Message not sent
+status sent message : 0
+Total New Sent Message : 1
+['msg-id-5533055']
+
+!RECEIVER SIDE!
+Platform : windows
+[2015-03-16 12:00:35] https://www.tokopedia.com/login.pl is accessed in 4.62 second
+environment : https://www.tokopedia.com/
+Success login with tkpd.qc+29b@gmail.com!
+[2015-03-16 12:00:43] https://www.tokopedia.com/inbox-message.pl is accessed in 3.93 second
+[2015-03-16 12:00:46] https://www.tokopedia.com/inbox-message.pl is accessed by click in 3.32 second
+JS clickable
+End of inbox page
+List of unread message ID has been successfully populated ...
+Total Unread Message : 3
+['msg-id-5533055', 'msg-id-5495490', 'msg-id-5364645']
+msg_ID : 
+['msg-id-5533055']
+msg-id-5533055
+j: 
+msg-id-5533055
+msg_received :
+msg-id-5533055
+1 out of 1 message(s) received from previous test flow.
+All message is successfully received
+msg-id-5533055
+[2015-03-16 12:00:54] https://www.tokopedia.com/inbox-message.pl is accessed in 2.35 second
+JS clickable
+[<selenium.webdriver.remote.webelement.WebElement object at 0x03665250>, <selenium.webdriver.remote.webelement.WebElement object at 0x036472F0>, <selenium.webdriver.remote.webelement.WebElement object at 0x03647250>]
+break1
+div#message div.span12 table.mt-20 tbody tr#msg-id-5533055 td.topic.td-inbox-msg a
+Opening message...
+break2
+Link tertangkap: http://apaya.co.cc
+message diterima: [LINK]
+Link censored: http://apaya.co.cc
+Link is censored
+
+Link tertangkap: www.santai.bloomberg.
+message diterima: [LINK].
+Link censored: www.santai.bloomberg
+Link is censored
+
+Link tertangkap: http://uktplink.com
+message diterima: http://uktplink.com
+Link is in whitelist
+
+Link tertangkap: http://laptoprepairnewcastle.com
+message diterima: http://laptoprepairnewcastle.com
+Link is in whitelist
+
+Link tertangkap: trx.cvv.cvv
+message diterima: trx.cvv.cvv
+Link is not censored
+
+Testing akan selesai dalam beberapa saat..
+]]></system-out></testcase></testsuite>

@@ -1,46 +1,42 @@
-import time, requests
-from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
+
+#this one is imported for mobile
+from appium import webdriver
+from time import sleep
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
+from selenium.webdriver.common.by import By
+
+#this one is not used for mobile
+import time, requests
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from utils.function.general import wait_visible_element, timestamp_print, timestamp_print_verify_url
 from utils.lib.user import Environment
 from urllib.error import HTTPError
 from requests import exceptions
 
-class BasePage(object):
-    log_result = ""
-    url = ""
-    site = {
-        "live-site" : "https://www.tokopedia.com/",
-        "beta-site" : "https://beta.tokopedia.com/",
-        "test-site" : "https://test.tokopedia.nginx/",
-        "dev-site" : "http://tokopedia.dev/"
-    }
+class PageBaseMobile(object):
 
     def __init__(self, driver):
         self.driver = driver
 
-    def _open(self, site="", pl=""):
-        current_env = Environment()
-        if(site == "dev"):
-            self.url = self.site['dev-site']
-        elif(site == "nginx"):
-            self.url = self.site['test-site']
-        elif(site == "beta"):
-            self.url = self.site['beta-site']
-        elif(site == "live"):
-            self.url = self.site['live-site']
-        else:
-            self.url = site
-        current_env.setEnv(self.url)
-        selected_env = current_env.getEnv()
-        self.get_page_load_time(self.url + pl)
-        return selected_env
+    def explicit_wait(self, locator):
+        return WebDriverWait(self.driver, 60).until(EC.presence_of_element_located((By.XPATH, locator)))
 
-        #assert self.on_page(), 'Did not land on %s' % url | #fungsi bawaan yang gw belom cukup level untuk pemakaian-nya.
+    def swipeLeft(self):
+        self.driver.swipe(100,835,900,835,150)
 
+    def swipeRight(self):
+        self.driver.swipe(900,835,100,835,150)
+
+    def swipeUp (self):
+        self.driver.swipe(250,150,250,800,300)
+
+    def swipeDown(self, startx=250, starty=800, endx=250, endy=150, dur=300):
+        self.driver.swipe(startx, starty, endx, endy, dur)
+
+    def snooze(self, x=2):
+        sleep(x)
 
     def get_page_load_time(self, url): #Fungsi untuk mengakses suatu halaman dan waktu proses-nya
         #response = urllib.request.urlopen(url)
@@ -50,13 +46,12 @@ class BasePage(object):
             try:
                 timestart = time.clock()
                 self.driver.set_page_load_timeout(set_time_out)
-                self.driver.implicitly_wait(10)
                 self.driver.get(url)
 
-                # if "www" in url :
-                #     response = requests.get(url, verify = True, timeout=30)
-                # elif "dev" or "nginx" or "beta" in url:
-                #     response = requests.get(url, verify = False, timeout=30)
+                if "www" in url :
+                    response = requests.get(url, verify = True)
+                elif "dev" or "nginx" or "beta" in url:
+                    response = requests.get(url, verify = False)
                 timeend = time.clock()
                 loadtime = timeend-timestart
 
@@ -68,18 +63,15 @@ class BasePage(object):
                 self.driver.refresh()
                 retry +=1
             except requests.exceptions.HTTPError:
-                if requests.get(url).status_code == 500:
+                if response.status_code == 500:
                     print ("Error code 500 : Maaf, saat ini Tokopedia sedang kepenuhan pengunjung. ")
-                elif requests.get(url).status_code == 503:
+                elif response.status_code == 503:
                     print ("Error code 503 : Tokopedia sedang maintenance.")
-                elif requests.get(url).status_code == 502:
+                elif response.status_code == 502:
                     print ("Error code 502 : Bad Gateway.")
-                elif requests.get(url).status_code ==504:
+                elif response.status_code ==504:
                     print ("Error code 504 : Gateway Timeout.")
-                retry +=1
-            except ConnectionRefusedError as e:
-                print (e)
-                retry +=1
+
 
     def _click(self, loc):
         timestart = time.clock()
@@ -88,11 +80,6 @@ class BasePage(object):
         loadtime = timeend-timestart
         timestamp_print_verify_url(self.driver.current_url, loadtime, self.log_result)
         #print (self.driver.current_url + " is accessed in " + str(loadtime) + " second")
-
-    def _click_to_pop(self, *loc):
-        self.check_visible_element(*loc)
-        self.find_element(*loc).click()
-
 
     def check_visible_element(self, by, element):
         retry = 0

@@ -1,0 +1,21 @@
+PhantomJS is launching GhostDriver...
+[INFO  - 2015-05-13T04:53:53.336Z] GhostDriver - Main - running on port 54558
+[INFO  - 2015-05-13T04:53:54.848Z] Session [0eb2beb0-f92c-11e4-a589-95535c26dec1] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":false,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34","webSecurityEnabled":true}
+[INFO  - 2015-05-13T04:53:54.848Z] Session [0eb2beb0-f92c-11e4-a589-95535c26dec1] - page.customHeaders:  - {}
+[INFO  - 2015-05-13T04:53:54.848Z] Session [0eb2beb0-f92c-11e4-a589-95535c26dec1] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"1.9.8","driverName":"ghostdriver","driverVersion":"1.1.0","platform":"windows-7-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2015-05-13T04:53:54.848Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 0eb2beb0-f92c-11e4-a589-95535c26dec1
+[ERROR - 2015-05-13T04:54:01.858Z] Session [0eb2beb0-f92c-11e4-a589-95535c26dec1] - page.onError - msg: TypeError: 'undefined' is not a function (evaluating 'function(){this.state&&this.pause()}.bind(this)')
+[ERROR - 2015-05-13T04:54:01.858Z] Session [0eb2beb0-f92c-11e4-a589-95535c26dec1] - page.onError - stack:
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1458)
+  g (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1458)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1458)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:37)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:9)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1458)
+  _init_assets (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1458)
+  process_ticker (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1460)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:1462)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:57)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:62)
+  done (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:534)
+  (anonymous function) (https://ecs1.tokopedia.net/built/assets-201505-ae44eb8ae6d17d69eae4c0c20f55d067.js:570)
