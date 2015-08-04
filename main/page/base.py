@@ -15,6 +15,7 @@ class BasePage(object):
     site = {
         "live-site" : "https://www.tokopedia.com/",
         "beta-site" : "https://beta.tokopedia.com/",
+        "staging-site" : "https://staging.tokopedia.com/",
         "test-site" : "https://test.tokopedia.nginx/",
         "dev-site" : "http://tokopedia.dev/"
     }
@@ -30,6 +31,8 @@ class BasePage(object):
             self.url = self.site['test-site']
         elif(site == "beta"):
             self.url = self.site['beta-site']
+        elif(site == "staging"):
+            self.url = self.site['staging-site']
         elif(site == "live"):
             self.url = self.site['live-site']
         else:

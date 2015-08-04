@@ -22,6 +22,8 @@ class ProductPage(BasePage):
 	_min_order_loc = (By.ID, "min-order")
 	_notes_loc = (By.CSS_SELECTOR, "div.offset1 div.control-group textarea#notes")
 	_btn_atc_loc = (By.CSS_SELECTOR, "div.span3 div.mt-70 a#btn-atc i.icon-shopping-cart")
+	_dropdown_shipping_loc = (By.XPATH, "//*[@id='shipping-agency_title']")
+	_list_shipping_new_loc = (By.XPATH, "//*[@id='shipping-agency_child']/ul/li")
 	_list_shipping_agency_loc = (By.XPATH, "//select[@name='shipping_agency']/option")
 	_list_service_type_loc = (By.XPATH, "//select[@id='shipping-product']/option")
 	_btn_buy_loc = (By.CSS_SELECTOR, "button.btn-buy")
@@ -192,7 +194,11 @@ class ProductPage(BasePage):
 		self.find_element(*self._notes_loc).send_keys(notes)
 		if is_add_address == True:
 			self.add_address("addr_as", "receiver_name", "96969696", "12240", "addr")
-		self.choose_shipping_agency(shipping_agency)
+		self.find_element(*self._dropdown_shipping_loc).click()
+		r = self.driver.find_elements(*self._list_shipping_new_loc)
+		
+		r[randint(1, len(r)-1)].click()
+		#self.choose_shipping_agency(shipping_agency)
 		time.sleep(1)
 		self.driver.find_element(*self._btn_buy_loc).submit()
 

@@ -33,10 +33,10 @@ class TestTransaction(unittest.TestCase):
         self.driver = tsetup("chrome")
         self.activity = TransactionActivity(self.driver)
         self.activity.set_parameter(self.dict)
-
+    """
     def test_case_deposit(self):
         print("Transaction with Saldo Tokopedia in", self.dict['site'])
-        self.activity.transaction_with("Deposit")
+        self.activity.transaction_with("Deposit")"""
     
     def test_case_transfer_bank(self):
         print("Transaction with Bank in", self.dict['site'])
