@@ -1,9 +1,6 @@
-# Selenium
-========
-
 # WebDriver with Python
 
-# TEST UNIT
+# Test Unit
 ----------
 1. test_login : 
 	a. test user untuk login (normal)
@@ -15,7 +12,7 @@
 	a. test untuk reject order -> single/multiple reject order
 
 
-# CLASS
+# Class
 ------
 1. Login
 2. Register
@@ -26,7 +23,7 @@
 7. Tx Payment (Pembelian)
 
 
-# FUNCTION
+# Function
 --------
 di Base.py
 1. get_page_loadtime -> fungsi untuk mengakses suatu halaman dan juga waktu proses loadtime nya
